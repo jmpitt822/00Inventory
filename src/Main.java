@@ -29,7 +29,16 @@ public class Main {
 
             switch (option) {
                 case "1":
-                    item = createItem();
+                    item = null;
+                    do {
+                        try {
+                            item = createItem();
+                        } catch (Exception e) {
+                            System.out.println("Bad category");
+                        }
+
+                    } while(item == null);
+
                     items.add(item);
                     break;
                 case "2":
@@ -44,14 +53,14 @@ public class Main {
         }
     }
 
-    public static void newItem() {
-        InventoryItem item = null;
-        String foodName = scanner.nextLine();
-        InventoryItem foodItem = new InventoryItem();
-        Food food = new Food(foodName, 0);
-        item = food;
-        items.add(item);
-    }
+//    public static void newItem() {
+//        InventoryItem item = null;
+//        String foodName = scanner.nextLine();
+//        InventoryItem foodItem = new InventoryItem();
+//        Food food = new Food(foodName, 0);
+//        item = food;
+//        items.add(item);
+//    }
 
     public static void removeItem() {
         System.out.println("Enter the number of the item you wish to remove:");
@@ -81,7 +90,7 @@ public class Main {
         }
         return b;
     }
-    public static InventoryItem createItem() {
+    public static InventoryItem createItem() throws Exception {
         InventoryItem item = null;
         boolean isInvalidCat = true;
         String catChoice="";
@@ -92,7 +101,7 @@ public class Main {
                     ||catChoice.equalsIgnoreCase("Equipment")||catChoice.equalsIgnoreCase("Electronics")) {
                 isInvalidCat = false;
             } else{
-                System.out.println("Invalid category.");
+                throw new Exception ("Bad category");
             }
         }
         System.out.println("Enter the name of the item:");
@@ -118,7 +127,9 @@ public class Main {
                 item = new Furniture(itemName, 0);
                 break;
             default:
-                System.out.printf("Error - Invalid category: %s", catChoice);
+                //should never get here
+                throw new Exception ("Bad category");
+//                System.out.printf("Error - Invalid category: %s", catChoice);
         }
         return item;
     }
