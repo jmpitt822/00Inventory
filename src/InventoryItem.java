@@ -2,9 +2,10 @@
  * Created by jeremypitt on 9/6/16.
  */
 public abstract class InventoryItem {
-    public String name;
-    public int quantity = 0;
-    public String category;
+    private String name;
+    private int quantity = 0;
+    private String category;
+
 
     public String getName() {
         return name;

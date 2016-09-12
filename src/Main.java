@@ -16,7 +16,7 @@ public class Main {
             int i = 1;
             System.out.println("Item List:");
             for (InventoryItem item : items) {
-                System.out.printf("%s. [%s] %s, %s \n", i, item.category, item.name, item.quantity);
+                System.out.printf("%s. [%s] %s, %s \n", i, item.getCategory(), item.getName(), item.getQuantity());
                 i++;
             }
             System.out.println("---");
@@ -53,14 +53,6 @@ public class Main {
         }
     }
 
-//    public static void newItem() {
-//        InventoryItem item = null;
-//        String foodName = scanner.nextLine();
-//        InventoryItem foodItem = new InventoryItem();
-//        Food food = new Food(foodName, 0);
-//        item = food;
-//        items.add(item);
-//    }
 
     public static void removeItem() {
         System.out.println("Enter the number of the item you wish to remove:");
@@ -77,38 +69,17 @@ public class Main {
         InventoryItem item = items.get(itemNum - 1);
         System.out.println("Enter the quantity of the item:");
         int itemQuantity = Integer.valueOf(scanner.nextLine());
-        item.quantity = itemQuantity;
+        item.setQuantity(itemQuantity);
 
     }
 
-    public static boolean catValidation(String s){
-        boolean b = true;
-        for (InventoryItem item: items){
-            if (s.equalsIgnoreCase(item.getCategory())){
-                b = false;
-            }
-        }
-        return b;
-    }
     public static InventoryItem createItem() throws Exception {
         InventoryItem item = null;
-        boolean isInvalidCat = true;
-        String catChoice="";
-        while (isInvalidCat) {
-            System.out.println("Enter the category of the item you wish to add: [Car/Electronics/Equipment/Food/Furniture]");
-            catChoice = scanner.nextLine();
-            if(catChoice.equalsIgnoreCase("Food")|| catChoice.equalsIgnoreCase("Car") || catChoice.equalsIgnoreCase("Furniture")
-                    ||catChoice.equalsIgnoreCase("Equipment")||catChoice.equalsIgnoreCase("Electronics")) {
-                isInvalidCat = false;
-            } else{
-                throw new Exception ("Bad category");
-            }
-        }
+        String catChoice;
+        System.out.println("Enter the category of the item you wish to add: [Car/Electronics/Equipment/Food/Furniture]");
+        catChoice = scanner.nextLine();
         System.out.println("Enter the name of the item:");
         String itemName = scanner.nextLine();
-
-
-
 
         switch (catChoice) {
             case "Food":
@@ -127,9 +98,7 @@ public class Main {
                 item = new Furniture(itemName, 0);
                 break;
             default:
-                //should never get here
                 throw new Exception ("Bad category");
-//                System.out.printf("Error - Invalid category: %s", catChoice);
         }
         return item;
     }
